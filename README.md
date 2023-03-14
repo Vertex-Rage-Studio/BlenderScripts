@@ -1,2 +1,5 @@
 # BlenderScripts
-A collection of useful Blender scripts
+A collection of useful Blender scripts.
+
+# Script list:
+- 
