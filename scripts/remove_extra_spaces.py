@@ -5,7 +5,7 @@ import re
 def remove_extra_spaces():
     """
     Removes extra spaces and multiple consecutive spaces from the names of all selected objects and their mesh data blocks.
-    Prints out what was modified.
+    Prints out what was modified to system console.
     
     
     Usage:
