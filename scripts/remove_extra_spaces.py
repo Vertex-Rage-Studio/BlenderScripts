@@ -24,7 +24,7 @@ def remove_extra_spaces():
         # Print a message indicating that objects need to be selected
         print("No objects selected. Please select one or more objects.")
 
-
+    changed = 0
     for obj in selected_objects:
         obj_name = obj.name
         obj_name_new = obj_name.strip()
@@ -43,8 +43,9 @@ def remove_extra_spaces():
         if mesh_name != mesh_name_new:
             print("Changed mesh data block name from \"" + mesh_name + "\" to \"" + mesh_name_new + "\"")
             obj.data.name = mesh_name_new
+            changed+=1
             
-    print("Finished removing extra space.")
+    print("Finished removing extra space. Changed " + str(changed) + " object names")
             
 if __name__ == '__main__':
     remove_extra_spaces()
