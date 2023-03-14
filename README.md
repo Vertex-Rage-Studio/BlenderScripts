@@ -1,9 +1,8 @@
-# BlenderScripts
-A collection of useful Blender scripts that are too small to turn into addon. Might be later converted into an addon with combined functionality.
+# VRS Blender Scripts
 
-Mostly related to streamline our processes while developing game assets, but might be useful beyond that.
+This GitHub repository contains a curated set of practical Blender scripts that are not extensive enough to be individual add-ons. The goal is to eventually merge their functionalities into a unified add-on.
 
-# Script list:
-- `remove_extra_spaces.py` - script that will "clean" selected objects from extra spaces (double spaces, trailing/leading spaces) from both object and mesh names.
-- `print_collection_tree.py` - simple script for just printing collections for other uses
-- `match_mesh_name.py` - script that matches mesh names to object names
+The primary focus of these scripts is to streamline game asset development, although they may also be helpful in other contexts. The current script list includes:
+- `remove_extra_spaces.py`: Cleans selected objects by removing extra spaces (double spaces, trailing/leading spaces) from both object and mesh names.
+- `print_collection_tree.py`: A basic script that prints collection trees for further usage.
+- `match_mesh_name.py`: Matches mesh names to their corresponding object names.
