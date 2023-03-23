@@ -1,3 +1,5 @@
+![alt text](https://github.com/Vertex-Rage-Studio/BlenderScripts/blob/main/images/VRS%20Blender%20Scripts.jpg)
+
 # VRS Blender Scripts
 
 This GitHub repository contains a curated set of practical Blender scripts that are not extensive enough to be individual add-ons. The goal is to eventually merge their functionalities into a unified add-on.
