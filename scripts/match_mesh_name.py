@@ -19,9 +19,11 @@ def match_mesh_name():
 
     changed = 0
     for obj in selected_objects:
-        if obj.users > 1:
-            user_objects = [o for o in bpy.data.objects if o.data == obj.data and o != obj]
-            user_names = ", ".join([o.name for o in user_objects])  
+        users = [o for o in bpy.data.objects if o.type == 'MESH' and o.data == obj.data]
+        actual_user_count = len(users)
+        if actual_user_count > 1:
+
+            user_names = ", ".join([o.name for o in users])
             print("Skipping object " + obj.name + " because it has multiple (" + str(obj.users) + ") users: " + user_names)
             continue
         
