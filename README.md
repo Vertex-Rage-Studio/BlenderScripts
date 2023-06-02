@@ -8,3 +8,4 @@ The primary focus of these scripts is to streamline game asset development, alth
 - `remove_extra_spaces.py`: Cleans selected objects by removing extra spaces (double spaces, trailing/leading spaces) from both object and mesh names.
 - `print_collection_tree.py`: A basic script that prints collection trees for further usage.
 - `match_mesh_name.py`: Matches mesh names to their corresponding object names.
+- `count_object_hierarchy.py`: Counts and prints visible mesh objects in the scene collection for further processing.
