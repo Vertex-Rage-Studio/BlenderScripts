@@ -9,3 +9,4 @@ The primary focus of these scripts is to streamline game asset development, alth
 - `print_collection_tree.py`: A basic script that prints collection trees for further usage.
 - `match_mesh_name.py`: Matches mesh names to their corresponding object names.
 - `count_object_hierarchy.py`: Counts and prints visible mesh objects in the scene collection for further processing.
+- `gamify_objects.py`: Applies rotation and scale, rounds position, and adds a Triangulate modifier to selected mesh objects.
