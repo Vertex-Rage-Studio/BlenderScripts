@@ -11,3 +11,4 @@ The primary focus of these scripts is to streamline game asset development, alth
 - `count_object_hierarchy.py`: Counts and prints visible mesh objects in the scene collection for further processing.
 - `gamify_objects.py`: Applies rotation and scale, rounds position, and adds a Triangulate modifier to selected mesh objects.
 - `remove_spaces.py`: Removes all spaces from selected object names and associated data names, prints changes, and provides a summary of how many object names were changed.
+- `remove_spaces_from_collections.py`: Removes spaces from all collection names.
