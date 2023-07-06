@@ -35,12 +35,12 @@ def process_objects():
 
             if any([x != round(x) for x in obj.location]):
                 round_position(obj)
-                print(f"Rounded position for {obj.name}")
+                print(f"o Rounded position for {obj.name}")
                 counts['round_pos'] += 1
 
             if "Triangulate" not in obj.modifiers:
                 add_triangulate_modifier(obj)
-                print(f"Added Triangulate modifier for {obj.name}")
+                print(f"Δ Added Triangulate modifier for {obj.name}")
                 counts['add_triangulate'] += 1
 
     print_summary(counts)
