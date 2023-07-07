@@ -12,3 +12,4 @@ The primary focus of these scripts is to streamline game asset development, alth
 - `gamify_objects.py`: Applies rotation and scale, rounds position, and adds a Triangulate modifier to selected mesh objects.
 - `remove_spaces.py`: Removes all spaces from selected object names and associated data names, prints changes, and provides a summary of how many object names were changed.
 - `remove_spaces_from_collections.py`: Removes spaces from all collection names.
+- `print_long_paths.py`: Prints out all filepath names that are longer than 85 chars (for handling 140 char limit in both Unreal's and Unity's asset requirements)
