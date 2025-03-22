@@ -3,6 +3,8 @@ import bpy
 
 def match_mesh_name():
     """
+    Note, this method works in 4.0 and below. I'm still searching for a way to do it in 4.2+.
+    
     Sets the names of the mesh data blocks for selected objects to their object names, skipping objects with multiple users.
     
     Usage:
@@ -16,6 +18,7 @@ def match_mesh_name():
         print("Will process: " + str(len(selected_objects)) + " objects for matching names.")
     else:
         print("No objects selected. Please select one or more objects.")
+        
 
     changed = 0
     for obj in selected_objects:
@@ -28,11 +31,11 @@ def match_mesh_name():
             continue
         
         old_name = obj.data.name
-        obj.data.name = obj.name
-        new_name = obj.data.name
+        new_name = obj.name
         
         if old_name != new_name:
             print("Changed mesh data block name from \"" + old_name + "\" to \"" + new_name + "\" for object \"" + obj.name + "\"")
+            obj.data.name = obj.name
             changed += 1
             
     print("Finished, changed mesh data block name for: " + str(changed) + " objects")
