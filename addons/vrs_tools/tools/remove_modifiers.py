@@ -1,5 +1,5 @@
 LABEL = "Remove All Modifiers"
-CATEGORY = "Mesh"
+CATEGORY = "Modifiers"
 TOOLTIP = "Remove every modifier from the selected objects"
 ORDER = 30
 

@@ -28,9 +28,9 @@ Requires Blender 4.0 or newer.
 | Naming | Remove Collection Spaces | Removes spaces from every collection name in the file. |
 | Naming | Match Mesh Names | Matches mesh names to selected object names. Skips meshes shared by multiple objects. |
 | Mesh | Gamify Objects | Applies rotation and scale, rounds local positions, and adds Triangulate to selected meshes. |
-| Mesh | Apply Single Modifier | Applies the modifier on selected objects that have exactly one. |
-| Mesh | Remove All Modifiers | Removes all modifiers from selected objects. |
 | Mesh | Align Origin to Face | In Edit Mode, moves the origin and 3D cursor to the active face, aligning Z to its normal and X to its longest edge. Offsets mesh coordinates to keep the mesh in place. |
+| Modifiers | Apply Single Modifier | Applies the modifier on selected objects that have exactly one. |
+| Modifiers | Remove All Modifiers | Removes all modifiers from selected objects. |
 | Reports | Count Mesh Hierarchy | Prints collection totals for visible meshes in the current view layer. Counts shared collection links once per total. |
 | Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |

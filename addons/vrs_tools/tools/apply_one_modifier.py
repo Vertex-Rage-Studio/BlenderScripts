@@ -1,7 +1,7 @@
 import bpy
 
 LABEL = "Apply Single Modifier"
-CATEGORY = "Mesh"
+CATEGORY = "Modifiers"
 TOOLTIP = "Apply modifiers on selected objects only when they have exactly one"
 ORDER = 20
 
