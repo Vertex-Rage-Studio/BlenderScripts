@@ -2,7 +2,7 @@
 
 # VRS Blender Scripts
 
-Blender helpers for game asset work, collected here as standalone scripts and a small personal add-on.
+Blender helpers for game asset work, collected in a small personal add-on.
 
 ## VRS Tools add-on
 
@@ -32,11 +32,17 @@ Requires Blender 4.0 or newer.
 | Mesh | Remove All Modifiers | Removes all modifiers from selected objects. |
 | Reports | Count Mesh Hierarchy | Prints collection totals for visible meshes in the current view layer. Counts shared collection links once per total. |
 | Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
+| Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
 | Examples | Hello World | Shows a greeting and the selection count. |
 
 Report output goes to Blender's console. On Windows, open it with **Window > Toggle System Console**.
 The path length limit is `MAX_LENGTH` in `print_long_paths.py`.
+
+Set `SHOW_OBJECTS = True` in `print_collection_tree.py` to include object names.
+Tree totals count collection memberships, so objects linked to multiple collections
+can be counted more than once. Visibility flags show the collection's viewport and
+render settings, not view-layer exclusions or temporary hiding.
 
 OBJ export temporarily sets each mesh's local location to zero, then restores its
 position and the selection. Parent transforms still apply. Filenames use cleaned
