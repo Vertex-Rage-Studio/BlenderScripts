@@ -2,7 +2,7 @@ bl_info = {
     "name": "VRS Tools",
     "author": "Vertex Rage Studio",
     "version": (0, 1, 0),
-    "blender": (4, 0, 0),
+    "blender": (5, 2, 1), # probably works with 4 as well, but I'm too lazy to test it across many versions...
     "location": "3D View > Sidebar > VRS",
     "description": "Personal helpers developed during my other work. Too small for stand alone addons.",
     "category": "3D View",
@@ -10,6 +10,7 @@ bl_info = {
 
 import importlib
 import importlib.util
+import hashlib
 import sys
 import traceback
 from pathlib import Path
@@ -21,10 +22,10 @@ from bpy.props import StringProperty
 TOOLS_DIRECTORY = Path(__file__).parent / "tools"
 _tools = {}
 _errors = {}
+_category_panels = {}
 
 
 def load_tool(name):
-    # A fresh module drops removed globals; reading source bypasses cached bytecode.
     importlib.import_module(f"{__package__}.tools")
     path = TOOLS_DIRECTORY / f"{name}.py"
     module_name = f"{__package__}.tools.{name}"
@@ -51,6 +52,8 @@ def refresh_tools():
             continue
         try:
             module = load_tool(name)
+            if getattr(module, "HIDDEN", False):
+                continue
             label = getattr(module, "LABEL", name.replace("_", " ").title())
             category = getattr(module, "CATEGORY", "General")
             tooltip = getattr(module, "TOOLTIP", f"Run {label}")
@@ -104,6 +107,7 @@ class VRS_OT_refresh_tools(bpy.types.Operator):
 
     def execute(self, context):
         refresh_tools()
+        sync_category_panels()
         for window in context.window_manager.windows:
             for area in window.screen.areas:
                 if area.type == 'VIEW_3D':
@@ -120,24 +124,13 @@ class VRS_PT_tools(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_category = "VRS"
 
+    def draw_header_preset(self, context):
+        self.layout.operator(
+            "vrs_tools.refresh", text="", icon='FILE_REFRESH', emboss=False,
+        )
+
     def draw(self, context):
         layout = self.layout
-        layout.operator("vrs_tools.refresh", icon='FILE_REFRESH')
-        category = None
-        sorted_tools = sorted(
-            _tools.items(),
-            key=lambda item: (
-                item[1]["category"].casefold(), item[1]["order"],
-                item[1]["label"].casefold(), item[0],
-            ),
-        )
-        for name, tool in sorted_tools:
-            if tool["category"] != category:
-                category = tool["category"]
-                box = layout.box()
-                box.label(text=category)
-                column = box.column(align=True)
-            column.operator("vrs_tools.run", text=tool["label"]).tool_id = name
         if not _tools:
             layout.label(text="No tools found. Add a script and refresh.")
         if _errors:
@@ -147,6 +140,50 @@ class VRS_PT_tools(bpy.types.Panel):
                 box.label(text=f"{name}: {error}")
 
 
+def draw_category(self, context):
+    column = self.layout.column(align=True)
+    category_tools = sorted(
+        ((name, tool) for name, tool in _tools.items()
+         if tool["category"] == self.bl_label),
+        key=lambda item: (item[1]["order"], item[1]["label"].casefold(), item[0]),
+    )
+    for name, tool in category_tools:
+        column.operator("vrs_tools.run", text=tool["label"]).tool_id = name
+
+
+def sync_category_panels():
+    categories = sorted(
+        {tool["category"] for tool in _tools.values()},
+        key=lambda category: (category.casefold(), category),
+    )
+    if list(_category_panels) == categories:
+        return
+    unregister_category_panels()
+    for index, category in enumerate(categories):
+        suffix = hashlib.sha256(category.encode("utf-8")).hexdigest()[:16]
+        panel_id = f"VRS_PT_category_{suffix}"
+        panel = type(panel_id, (bpy.types.Panel,), {
+            "__module__": __name__,
+            "bl_idname": panel_id,
+            "bl_label": category,
+            "bl_space_type": 'VIEW_3D',
+            "bl_region_type": 'UI',
+            "bl_category": "VRS",
+            "bl_parent_id": "VRS_PT_tools",
+            "bl_order": index,
+            "bl_options": {'DEFAULT_CLOSED'} if category in {"Export", "Reports"} else set(),
+            "draw": draw_category,
+        })
+        bpy.utils.register_class(panel)
+        _category_panels[category] = panel
+
+
+def unregister_category_panels():
+    for panel in reversed(list(_category_panels.values())):
+        bpy.utils.unregister_class(panel)
+    _category_panels.clear()
+
+
 classes = (VRS_OT_run_tool, VRS_OT_refresh_tools, VRS_PT_tools)
 
 
@@ -154,9 +191,11 @@ def register():
     refresh_tools()
     for cls in classes:
         bpy.utils.register_class(cls)
+    sync_category_panels()
 
 
 def unregister():
+    unregister_category_panels()
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
     _tools.clear()

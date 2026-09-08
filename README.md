@@ -21,6 +21,8 @@ Requires Blender 4.0 or newer.
 
 ### Tools
 
+![alt text](https://github.com/Vertex-Rage-Studio/BlenderScripts/blob/main/images/PanleLook.jpg)
+
 | Category | Button | What it does |
 | --- | --- | --- |
 | Naming | Remove Extra Spaces | Trims selected object and mesh names and collapses repeated whitespace. |
@@ -35,7 +37,6 @@ Requires Blender 4.0 or newer.
 | Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
-| Examples | Hello World | Shows a greeting and the selection count. |
 
 Report output goes to Blender's console. On Windows, open it with **Window > Toggle System Console**.
 The path length limit is `MAX_LENGTH` in `print_long_paths.py`.
@@ -66,16 +67,18 @@ def run(context):
 
 Only `run(context)` is required. The other fields are optional: the label defaults
 to the filename as a title, category to `General`, tooltip to `Run <label>`, and
-order to `1000`. Categories sort alphabetically; buttons sort by order, then label.
+order to `1000`. Categories sort alphabetically, buttons sort by order, then label.
+Set `HIDDEN = True` to keep a script out of the panel (as in `hello_world.py`).
 Return a string to show a message in Blender, or return nothing.
 
-Click **Refresh Tools** after adding or removing files, or changing their button
+Click the **Refresh Tools** icon in the panel header after adding or removing files, or changing their button
 details. Changes inside a script take effect on the next click without refreshing.
 Restart Blender after editing the add-on itself or shared modules imported by a script.
 
 Use normal Python filenames, such as `rename_objects.py`. Files starting with `_`
 and subfolders are skipped. Shared functions can go in `_common.py` and be imported
-with `from ._common import helper`.
+with `from ._common import helper` (not used currently, trying to keep the scripts 
+small and self-contained :P).
 
 Keep scene changes inside `run(context)`: files are also executed during discovery.
 The context comes from the 3D View, so check the current mode and selection where

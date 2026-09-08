@@ -2,6 +2,7 @@ LABEL = "Hello World"
 CATEGORY = "Examples"
 TOOLTIP = "Show a greeting and the number of selected objects"
 ORDER = 10
+HIDDEN = True
 
 
 def run(context):
