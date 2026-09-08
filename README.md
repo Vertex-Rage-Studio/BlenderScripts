@@ -7,7 +7,7 @@ Blender helpers for game asset work, collected here as standalone scripts and a 
 ## VRS Tools add-on
 
 [`addons/vrs_tools`](addons/vrs_tools) adds a panel to the 3D View sidebar.
-Requires Blender 4.0 or newer. For now it only contains a Hello World example.
+Requires Blender 4.0 or newer.
 
 ### Setup
 
@@ -17,7 +17,32 @@ Requires Blender 4.0 or newer. For now it only contains a Hello World example.
 4. Under **Preferences > Add-ons**, enable **VRS Tools**.
 5. In the 3D View, press **N** and open the **VRS** tab.
 
-### Adding scripts
+
+
+### Tools
+
+| Category | Button | What it does |
+| --- | --- | --- |
+| Naming | Remove Extra Spaces | Trims selected object and mesh names and collapses repeated whitespace. |
+| Naming | Remove Spaces | Removes spaces from selected object names and their data names. |
+| Naming | Remove Collection Spaces | Removes spaces from every collection name in the file. |
+| Naming | Match Mesh Names | Matches mesh names to selected object names. Skips meshes shared by multiple objects. |
+| Mesh | Gamify Objects | Applies rotation and scale, rounds local positions, and adds Triangulate to selected meshes. |
+| Mesh | Apply Single Modifier | Applies the modifier on selected objects that have exactly one. |
+| Mesh | Remove All Modifiers | Removes all modifiers from selected objects. |
+| Reports | Count Mesh Hierarchy | Prints collection totals for visible meshes in the current view layer. Counts shared collection links once per total. |
+| Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
+| Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
+| Examples | Hello World | Shows a greeting and the selection count. |
+
+Report output goes to Blender's console. On Windows, open it with **Window > Toggle System Console**.
+The path length limit is `MAX_LENGTH` in `print_long_paths.py`.
+
+OBJ export temporarily sets each mesh's local location to zero, then restores its
+position and the selection. Parent transforms still apply. Filenames use cleaned
+object names, and existing exports are overwritten.
+
+## For devs: adding new scripts
 
 Create a Python file directly in `addons/vrs_tools/tools/`, for example `my_helper.py`:
 
@@ -49,18 +74,3 @@ Keep scene changes inside `run(context)`: files are also executed during discove
 The context comes from the 3D View, so check the current mode and selection where
 needed. Failed scripts show an error; full tracebacks go to Blender's console.
 Errors don't roll back partial changes, and undo doesn't cover file writes.
-
-## Standalone scripts
-
-The initial scripts are in `scripts/`:
-
-- `remove_extra_spaces.py`: Cleans selected objects by removing extra spaces (double spaces, trailing/leading spaces) from both object and mesh names.
-- `print_collection_tree.py`: A basic script that prints collection trees for further usage.
-- `match_mesh_name.py`: Matches mesh names to their corresponding object names.
-- `count_object_hierarchy.py`: Counts and prints visible mesh objects in the scene collection for further processing.
-- `gamify_objects.py`: Applies rotation and scale, rounds position, and adds a Triangulate modifier to selected mesh objects.
-- `remove_spaces.py`: Removes all spaces from selected object names and associated data names, prints changes, and provides a summary of how many object names were changed.
-- `remove_spaces_from_collections.py`: Removes spaces from all collection names.
-- `print_long_paths.py`: Prints out all filepath names that are longer than 85 chars (for handling 140 char limit in both Unreal's and Unity's asset requirements)
-
-I will remove them from here after migrating to new addon-based setup.
