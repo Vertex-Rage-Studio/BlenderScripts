@@ -29,7 +29,7 @@ Requires Blender 4.0 or newer.
 | Naming | Remove Spaces | Removes spaces from selected object names and their data names. |
 | Naming | Remove Collection Spaces | Removes spaces from every collection name in the file. |
 | Naming | Match Mesh Names | Matches mesh names to selected object names. Skips meshes shared by multiple objects. |
-| Mesh | Gamify Objects | Applies rotation and scale, rounds local positions, and adds Triangulate to selected meshes. |
+| Mesh | Gamify Objects | Applies rotation and scale, rounds local positions, and adds Triangulate pinned last (Keep Normals on for custom or weighted normals). Shared meshes are applied once; unselected copies stay in place. |
 | Mesh | Align Origin to Face | In Edit Mode, moves the origin and 3D cursor to the active face, aligning Z to its normal and X to its longest edge. Offsets mesh coordinates to keep the mesh in place. |
 | Modifiers | Apply Single Modifier | Applies the modifier on selected objects that have exactly one. |
 | Modifiers | Remove All Modifiers | Removes all modifiers from selected objects. |
