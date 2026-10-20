@@ -7,7 +7,7 @@ Blender helpers for game asset work, collected in a small personal add-on.
 ## VRS Tools add-on
 
 [`addons/vrs_tools`](addons/vrs_tools) adds a panel to the 3D View sidebar.
-Requires Blender 4.0 or newer.
+Developed and tested on Blender 5.2.1. Should work on 4+, but I didn't test that.
 
 ### Setup
 
@@ -16,6 +16,11 @@ Requires Blender 4.0 or newer.
 3. Save preferences and restart Blender.
 4. Under **Preferences > Add-ons**, enable **VRS Tools**.
 5. In the 3D View, press **N** and open the **VRS** tab.
+
+To install it as an extension instead, build a zip with
+`blender --command extension build --source-dir addons/vrs_tools` and install it
+from **Preferences > Get Extensions > Install from Disk**. Use one setup or the
+other, not both, or the two copies clash.
 
 
 
@@ -83,4 +88,4 @@ small and self-contained :P).
 Keep scene changes inside `run(context)`: files are also executed during discovery.
 The context comes from the 3D View, so check the current mode and selection where
 needed. Failed scripts show an error; full tracebacks go to Blender's console.
-Errors don't roll back partial changes, and undo doesn't cover file writes.
+Errors don't roll back partial changes, but one Ctrl+Z undoes them. Undo doesn't cover file writes.

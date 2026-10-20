@@ -97,7 +97,7 @@ class VRS_OT_run_tool(bpy.types.Operator):
         except Exception as exc:
             traceback.print_exc()
             self.report({'ERROR'}, f"{self.tool_id}: {exc}")
-            return {'CANCELLED'}
+        # FINISHED even on error, so an undo step is pushed for partial changes
         return {'FINISHED'}
 
 
