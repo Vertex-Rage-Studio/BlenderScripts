@@ -1,0 +1,17 @@
+schema_version = "1.0.0"
+
+id = "vrs_tools"
+version = "0.1.0"
+name = "VRS Tools"
+tagline = "Small helpers for game asset work"
+maintainer = "Vertex Rage Studio"
+type = "add-on"
+website = "https://github.com/Vertex-Rage-Studio/BlenderScripts"
+tags = ["3D View", "Object"]
+
+blender_version_min = "5.2.1"
+
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Export OBJ files next to the blend file"
