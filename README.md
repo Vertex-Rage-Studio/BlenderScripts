@@ -30,9 +30,9 @@ other, not both, or the two copies clash.
 
 | Category | Button | What it does |
 | --- | --- | --- |
-| Naming | Remove Extra Spaces | Trims selected object and mesh names and collapses repeated whitespace. |
+| Naming | Remove Extra Spaces | Trims selected object and data names and collapses repeated whitespace. |
 | Naming | Remove Spaces | Removes spaces from selected object names and their data names. |
-| Naming | Remove Collection Spaces | Removes spaces from every collection name in the file. |
+| Naming | Remove Collection Spaces | Removes spaces from the collection names in the current scene. |
 | Naming | Match Mesh Names | Matches mesh names to selected object names. Skips meshes shared by multiple objects. |
 | Mesh | Gamify Objects | Applies rotation and scale, rounds local positions, and adds Triangulate pinned last (Keep Normals on for custom or weighted normals). Shared meshes are applied once; unselected copies stay in place. |
 | Mesh | Align Origin to Face | In Edit Mode, moves the origin and 3D cursor to the active face, aligning Z to its normal and X to its longest edge. Offsets mesh coordinates to keep the mesh in place. |
@@ -42,6 +42,9 @@ other, not both, or the two copies clash.
 | Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
+
+The Naming tools print a warning when a new name already exists and Blender adds `.001`.
+Linked library data is skipped; the console says which file to rename it in.
 
 Report output goes to Blender's console. On Windows, open it with **Window > Toggle System Console**.
 The path length limit is `MAX_LENGTH` in `print_long_paths.py`.
