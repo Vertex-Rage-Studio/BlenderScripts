@@ -11,7 +11,7 @@ def find_long_paths(layer, path=""):
         return []
     paths = []
     for obj in layer.collection.objects:
-        object_path = f"{path}/{obj.name}"
+        object_path = f"{path}/{obj.name}" if path else obj.name
         if len(object_path) > MAX_LENGTH:
             paths.append(object_path)
     for child in layer.children:
