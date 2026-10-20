@@ -5,6 +5,8 @@ ORDER = 20
 
 
 def run(context):
+    if context.mode != 'OBJECT':
+        raise ValueError("Switch to Object Mode first")
     objects_changed = 0
     data_changed = 0
     for obj in context.selected_objects:

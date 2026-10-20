@@ -12,6 +12,7 @@ import importlib
 import importlib.util
 import hashlib
 import sys
+import textwrap
 import traceback
 from pathlib import Path
 
@@ -136,8 +137,10 @@ class VRS_PT_tools(bpy.types.Panel):
         if _errors:
             box = layout.box()
             box.label(text="Fix these scripts, then refresh:", icon='ERROR')
+            width = max(20, int(context.region.width / 7))
             for name, error in _errors.items():
-                box.label(text=f"{name}: {error}")
+                for line in textwrap.wrap(f"{name}: {error}", width):
+                    box.label(text=line)
 
 
 def draw_category(self, context):
