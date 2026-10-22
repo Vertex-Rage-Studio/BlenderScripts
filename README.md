@@ -42,6 +42,7 @@ other, not both, or the two copies clash.
 | Reports | Print Long Paths | Prints collection/object paths longer than 85 characters, skipping hidden collections. |
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
+| Export | Export Collection Layout | Writes the meshes of the active collection (name, source asset, world transform) to `layout/<collection>.json` beside the saved blend file. |
 
 The Naming tools print a warning when a new name already exists and Blender adds `.001`.
 Linked library data is skipped; the console says which file to rename it in.
@@ -57,6 +58,13 @@ render settings, not view-layer exclusions or temporary hiding.
 OBJ export temporarily sets each mesh's local location to zero, then restores its
 position and the selection. Parent transforms still apply. Filenames use cleaned
 object names, and existing exports are overwritten.
+
+Layout export is for rebuilding a Blender scene in an engine from already exported assets.
+The asset of each mesh is the one object that shares its mesh data and has the BfU
+export type *Export recursive* (what UE Helper's *Mark selected for export* sets).
+If any mesh has none or several, nothing is written and the console lists them.
+Values are in Blender world space: meters, Z up, rotation as a WXYZ quaternion.
+The engine side does the conversion. Existing files are overwritten.
 
 ## For devs: adding new scripts
 
