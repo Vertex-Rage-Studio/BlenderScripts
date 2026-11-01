@@ -43,6 +43,7 @@ other, not both, or the two copies clash.
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
 | Export | Export Collection Layout | Writes the meshes of the active collection (name, source asset, world transform) to `layout/<collection>.json` beside the saved blend file. |
+| Setup | Collapse Outliners | Collapses every Outliner in all workspaces. Needs Object Mode. Switches through the workspaces for a moment, then goes back to the current one. |
 
 The Naming tools print a warning when a new name already exists and Blender adds `.001`.
 Linked library data is skipped; the console says which file to rename it in.
