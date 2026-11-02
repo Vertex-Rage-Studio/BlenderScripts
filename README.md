@@ -43,6 +43,7 @@ other, not both, or the two copies clash.
 | Reports | Print Collection Tree | Prints the full scene collection tree with direct and recursive object counts and collection visibility flags. |
 | Export | Export Selected OBJ | Exports selected meshes to separate OBJ files in `obj/` beside the saved blend file. |
 | Export | Export Collection Layout | Writes the meshes of the active collection (name, source asset, world transform) to `layout/<collection>.json` beside the saved blend file. |
+| Export | Save Share Copy | Saves `<name>_share.blend` beside the saved blend file with all linked data made local and external files packed, so it opens on another PC. The open file is not changed. |
 | Setup | Collapse Outliners | Collapses every Outliner in all workspaces. Needs Object Mode. Switches through the workspaces for a moment, then goes back to the current one. |
 
 The Naming tools print a warning when a new name already exists and Blender adds `.001`.
@@ -66,6 +67,11 @@ export type *Export recursive* (what UE Helper's *Mark selected for export* sets
 If any mesh has none or several, nothing is written and the console lists them.
 Values are in Blender world space: meters, Z up, rotation as a WXYZ quaternion.
 The engine side does the conversion. Existing files are overwritten.
+
+Save Share Copy works on the saved file in a background Blender, so save your changes first.
+It makes linked data local, purges unused data and packs external files. A missing
+external file stops it before anything is written. Anything still linked or not packed
+(movies, caches) is listed in the console. An existing share copy is overwritten.
 
 ## For devs: adding new scripts
 
