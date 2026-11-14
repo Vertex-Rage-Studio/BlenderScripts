@@ -24,6 +24,7 @@ TOOLS_DIRECTORY = Path(__file__).parent / "tools"
 _tools = {}
 _errors = {}
 _category_panels = {}
+_keymap_items = []
 
 
 def load_tool(name):
@@ -63,11 +64,15 @@ def refresh_tools():
                 raise ValueError("LABEL, CATEGORY and TOOLTIP must be strings")
             if not isinstance(order, (int, float)):
                 raise ValueError("ORDER must be a number")
+            shortcut = getattr(module, "SHORTCUT", None)
+            if shortcut is not None and not isinstance(shortcut, str):
+                raise ValueError("SHORTCUT must be a string like 'ctrl shift A'")
             _tools[name] = {
                 "label": label,
                 "category": category.strip() or "General",
                 "tooltip": tooltip,
                 "order": order,
+                "shortcut": shortcut,
             }
         except Exception as exc:
             _errors[name] = str(exc)
@@ -109,6 +114,7 @@ class VRS_OT_refresh_tools(bpy.types.Operator):
     def execute(self, context):
         refresh_tools()
         sync_category_panels()
+        sync_keymaps()
         for window in context.window_manager.windows:
             for area in window.screen.areas:
                 if area.type == 'VIEW_3D':
@@ -187,6 +193,32 @@ def unregister_category_panels():
     _category_panels.clear()
 
 
+def sync_keymaps():
+    unregister_keymaps()
+    keyconfig = bpy.context.window_manager.keyconfigs.addon
+    if not keyconfig:
+        return
+    for name, tool in _tools.items():
+        if not tool["shortcut"]:
+            continue
+        *modifiers, key = tool["shortcut"].split()
+        modifiers = {modifier.lower(): True for modifier in modifiers}
+        keymap = keyconfig.keymaps.new(name="Window", space_type='EMPTY')
+        try:
+            item = keymap.keymap_items.new("vrs_tools.run", key.upper(), 'PRESS', **modifiers)
+        except (TypeError, ValueError) as exc:
+            _errors[name] = f"Bad SHORTCUT: {exc}"
+            continue
+        item.properties.tool_id = name
+        _keymap_items.append((keymap, item))
+
+
+def unregister_keymaps():
+    for keymap, item in _keymap_items:
+        keymap.keymap_items.remove(item)
+    _keymap_items.clear()
+
+
 classes = (VRS_OT_run_tool, VRS_OT_refresh_tools, VRS_PT_tools)
 
 
@@ -195,9 +227,11 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
     sync_category_panels()
+    sync_keymaps()
 
 
 def unregister():
+    unregister_keymaps()
     unregister_category_panels()
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)

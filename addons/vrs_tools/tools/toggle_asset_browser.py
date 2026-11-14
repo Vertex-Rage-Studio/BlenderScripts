@@ -4,6 +4,7 @@ LABEL = "Toggle Asset Browser"
 CATEGORY = "Setup"
 TOOLTIP = "Open an Asset Browser on the left of this 3D View, or close it if it's already there. Reopens with the last width, library and catalog"
 ORDER = 30
+SHORTCUT = "ctrl shift A"
 
 WIDTH = 0.25
 STATE_KEY = "vrs_asset_browser"
