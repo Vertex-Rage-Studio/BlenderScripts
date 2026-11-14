@@ -45,6 +45,7 @@ other, not both, or the two copies clash.
 | Export | Export Collection Layout | Writes the meshes of the active collection (name, source asset, world transform) to `layout/<collection>.json` beside the saved blend file. |
 | Export | Save Share Copy | Saves `<name>_share.blend` beside the saved blend file with all linked data made local and external files packed, so it opens on another PC. The open file is not changed. |
 | Setup | Collapse Outliners | Collapses every Outliner in all workspaces. Needs Object Mode. Switches through the workspaces for a moment, then goes back to the current one. |
+| Setup | Toggle Asset Browser | Opens an Asset Browser on the left quarter of the 3D View, or closes it if it's already there. Also closes it when used from inside the Asset Browser. Reopens with the last width, library, catalog, search and display settings (saved per workspace in the blend file). Right-click the button > Assign Shortcut to bind a key. |
 
 The Naming tools print a warning when a new name already exists and Blender adds `.001`.
 Linked library data is skipped; the console says which file to rename it in.
